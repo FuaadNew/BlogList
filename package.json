@@ -12,5 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "env": "^0.0.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.0"
   }
 }
