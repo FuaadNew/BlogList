@@ -31,9 +31,13 @@ app.post('/api/blogs', async (request, response) => {
 
 
 
-const PORT = 3003
-app.listen(PORT, () => {
+if (require.main == module) {
+  const PORT = 3003
+  app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+}
+
+
 
 module.exports = app
