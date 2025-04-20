@@ -15,17 +15,6 @@ test('Blogs are returned as json', async () => {
 })
 
 
-test('Blogs length is 8', async () => {
-  const response = await api
-    .get('/api/blogs')
-    .catch(error =>{
-      console.log(error)
-    })
-  
-  assert.strictEqual(response.body.length,8)
-  
-    
-})
 
 test('Blogs id attribute is id not _id', async () => {
   const response = await api
@@ -42,6 +31,25 @@ test('Blogs id attribute is id not _id', async () => {
     assert.notStrictEqual(response.body[0].id, undefined, 'id should be defined')
     assert.strictEqual(response.body[0]._id, undefined, '_id should not be defined')
   
+    
+})
+
+test('post request makes new object', async()=>{
+    let response = await api.get('/api/blogs')
+    const newBlog = {
+        title: "Many Men",
+        author: "Mitchell Moore",
+        url: "MM.com",
+        likes: 2,
+      }
+
+      const N = response.body.length
+
+      await api.post('/api/blogs').send(newBlog)
+
+      response = await api.get('/api/blogs')
+
+      assert.strictEqual(N + 1, response.body.length)
     
 })
 
