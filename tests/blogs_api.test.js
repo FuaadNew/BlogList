@@ -27,6 +27,25 @@ test('Blogs length is 8', async () => {
     
 })
 
+test('Blogs id attribute is id not _id', async () => {
+  const response = await api
+    .get('/api/blogs')
+    .catch(error =>{
+      console.log(error)
+    })
+  
+    
+    if (!response.body || response.body.length === 0){
+      assert.fail('No Blogs returned')
+    }
+    assert(response.body.length > 0)
+    assert.notStrictEqual(response.body[0].id, undefined, 'id should be defined')
+    assert.strictEqual(response.body[0]._id, undefined, '_id should not be defined')
+  
+    
+})
+
+
 
 test(async () => {
   const mongoose = require('mongoose')

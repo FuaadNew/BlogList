@@ -13,6 +13,15 @@ const blogSchema = mongoose.Schema({
   likes: Number,
 })
 
+
+blogSchema.set('toJSON',{
+  transform:(document,returnedDocument)=>{
+    returnedDocument.id = document._id.toString()
+    delete returnedDocument._id
+    delete returnedDocument.__v
+
+  }
+})
 const Blog = mongoose.model('Blog', blogSchema)
 
 const mongoUrl = process.env.MONGO_URI
