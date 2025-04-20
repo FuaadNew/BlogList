@@ -12,6 +12,9 @@ test('notes are returned as json', async () => {
     .expect('Content-Type', /application\/json/)
 })
 
-after(async () => {
+
+
+test(async () => {
+  const mongoose = require('mongoose')
   await mongoose.connection.close()
 })
