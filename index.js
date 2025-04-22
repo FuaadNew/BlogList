@@ -7,6 +7,8 @@ const app = express()
 
 app.use(express.json())
 app.get('/api/blogs', async (request, response) => {
+
+ 
   const blogs = await Blog.find({})
   response.json(blogs)
 })
@@ -22,6 +24,11 @@ app.get('/api/blogs', async (request, response) => {
 
 app.post('/api/blogs', async (request, response) => {
   const blog = new Blog(request.body)
+
+   
+  if (!request.body.title || ! request.body.url){
+    return response.status(400).end()
+  }
 
   await blog.save()
   response.status(201).json(blog)

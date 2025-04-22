@@ -72,11 +72,21 @@ test('Likes are not required', async()=>{
 
   assert.strictEqual(postedBlog.likes, 0)
 
-
-
-
-  
 })
+
+
+test('400 status code is returned if no title or url', async ()=>{
+  const newBlog = {
+    author: "Mitchell Moore",
+    likes: 2,
+  }
+  const response = await api.post('/api/blogs').send(newBlog)
+
+  assert.strictEqual(response.statusCode,400)
+
+
+})
+
 
 
 test(async () => {
