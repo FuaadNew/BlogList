@@ -53,6 +53,30 @@ test('post request makes new object', async()=>{
     
 })
 
+test('Likes are not required', async()=>{
+  const newBlog = {
+    title: "Many Men",
+    author: "Mitchell Moore",
+    url: "MM.com"
+   
+  }
+
+
+
+  const response = await api.post('/api/blogs').send(newBlog)
+  const newBlogId = response.body.id
+
+  const blogs = await api.get('/api/blogs')
+
+  const postedBlog = blogs.body.find(blog=> blog.id === newBlogId)
+
+  assert.strictEqual(postedBlog.likes, 0)
+
+
+
+
+  
+})
 
 
 test(async () => {
