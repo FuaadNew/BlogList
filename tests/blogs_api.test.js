@@ -87,6 +87,24 @@ test('400 status code is returned if no title or url', async ()=>{
 
 })
 
+test('delete request deletes blog entry with id', async () =>{
+  const blogsatStart = await api.get('/api/blogs')
+  const blogToDelete = blogsatStart.body[0]
+
+  await api.delete(`/api/blogs/${blogToDelete.id}`)
+
+  const blogsatEnd = await api.get('/api/blogs')
+
+
+
+
+  assert.strictEqual(blogsatEnd.body.length,blogsatStart.body.length - 1 )
+
+ const id = blogsatEnd.body.map(blog => blog.id)
+ assert(!id.includes(blogToDelete.id))
+
+
+})
 
 
 test(async () => {
