@@ -13,6 +13,18 @@ app.get('/api/blogs', async (request, response) => {
   response.json(blogs)
 })
 
+
+app.put('/api/blogs/:id', async (req, res) =>{
+  try {
+    const id = req.params.id
+    await Blog.findByIdAndUpdate(id, req.body, {new:true})
+    res.status(204).end()
+  }
+  catch(error){
+    res.status(400).json({error: "malformed id"})
+  }
+})
+
 app.delete('/api/blogs/:id', async (request,response)=>{
   
   try {const id = request.params.id
