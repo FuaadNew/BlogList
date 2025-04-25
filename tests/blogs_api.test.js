@@ -106,6 +106,26 @@ test('delete request deletes blog entry with id', async () =>{
 
 })
 
+test('updated blog post has more likes', async ()=>{  
+  const blogsAtStart = await api.get('/api/blogs')
+  const blogToUpdate = blogsAtStart.body[0]
+
+  updatedBlog = {
+    ...blogToUpdate,
+    likes: blogToUpdate.likes + 1
+  }
+
+  await api.put(`/api/blogs/${blogToUpdate.id}`).send(updatedBlog)
+
+  const blogsAtEnd = await api.get('/api/blogs')
+
+  const blog = blogsAtEnd.body.find(blog => blog.id == blogToUpdate.id)
+
+  assert.strictEqual(blog.likes,updatedBlog.likes)
+
+  
+})
+
 
 test(async () => {
   const mongoose = require('mongoose')
