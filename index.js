@@ -1,4 +1,5 @@
 const express = require('express')
+const userRouter = require('./controllers/users')
 const {Blog} = require('./models/mongo')
 
 const mongoose = require('mongoose')
@@ -6,6 +7,8 @@ const mongoose = require('mongoose')
 const app = express()
 
 app.use(express.json())
+app.use('/api/users', userRouter)
+
 app.get('/api/blogs', async (request, response) => {
 
  
