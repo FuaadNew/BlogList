@@ -126,6 +126,71 @@ test('updated blog post has more likes', async ()=>{
   
 })
 
+test('users with no password is not created', async ()=>{
+  const newUser = {
+    username: "Mitchell Moore",
+   
+
+   
+  }
+
+  const response = await api.post('/api/users').send(newUser)
+ 
+
+  assert.strictEqual(response.statusCode,400)
+
+
+})
+
+test('users with short password is not created', async ()=>{
+  const newUser = {
+    username: "Mitchell Moore",
+    password: "12"
+
+   
+  }
+
+  const response = await api.post('/api/users').send(newUser)
+ 
+
+  assert.strictEqual(response.statusCode,400)
+
+
+})
+
+test('users with no username is not created', async ()=>{
+  const newUser = {
+    password: "123"
+
+   
+  }
+
+  const response = await api.post('/api/users').send(newUser)
+ 
+
+  assert.strictEqual(response.statusCode,400)
+
+
+})
+
+
+test('users with short username is not created', async ()=>{
+  const newUser = {
+    username: "mic",
+    password: "123"
+
+   
+  }
+
+  const response = await api.post('/api/users').send(newUser)
+ 
+
+  assert.strictEqual(response.statusCode,400)
+
+
+})
+
+
 
 test(async () => {
   const mongoose = require('mongoose')
