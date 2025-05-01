@@ -158,37 +158,37 @@ test('users with short password is not created', async ()=>{
 
 })
 
+test('users with short username is not created', async ()=>{
+  const newUser = {
+    username: "mi",
+    password: "123"
+
+   
+  }
+
+  const response = await api.post('/api/users').send(newUser)
+ 
+
+  assert.strictEqual(response.statusCode,400)
+})
+
 test('users with no username is not created', async ()=>{
   const newUser = {
     password: "123"
-
-   
-  }
+  } 
 
   const response = await api.post('/api/users').send(newUser)
  
 
-  assert.strictEqual(response.statusCode,400)
-
-
+  assert.strictEqual(response.statusCode,400) 
 })
 
 
-test('users with short username is not created', async ()=>{
-  const newUser = {
-    username: "mic",
-    password: "123"
-
-   
-  }
-
-  const response = await api.post('/api/users').send(newUser)
- 
-
-  assert.strictEqual(response.statusCode,400)
 
 
-})
+
+
+
 
 
 
