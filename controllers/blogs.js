@@ -2,6 +2,16 @@ const BlogsRouter = require('express').Router()
 const Blog = require('../models/mongo')
 const User = require('../models/users')
 
+const jwt = require('jsonwebtoken')
+
+const getTokenFrom = request =>{
+    const authorization = request.get('authorization')
+    if (authorization && authorization.startsWith('Bearer ') ){
+        return authorization.replace('Bearer ', '')
+    }
+    return Null
+}
+
 BlogsRouter.post('/',async(request,response) => {
     const body = request.body
 

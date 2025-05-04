@@ -1,12 +1,14 @@
 const express = require('express')
 const userRouter = require('./controllers/users')
 const {Blog} = require('./models/mongo')
+const loginRouter = require('./controllers/login')
 
 const mongoose = require('mongoose')
 
 const app = express()
 
 app.use(express.json())
+app.use('/api/login',loginRouter)
 app.use('/api/users', userRouter)
 
 app.get('/api/blogs', async (request, response) => {
