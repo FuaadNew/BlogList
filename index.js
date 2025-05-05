@@ -3,9 +3,13 @@ const userRouter = require('./controllers/users')
 const {Blog} = require('./models/mongo')
 const loginRouter = require('./controllers/login')
 
+const middleware = require('./middleware')
+const app = express()
+
+app.use(middleware.tokenExtractor)
+
 const mongoose = require('mongoose')
 
-const app = express()
 
 app.use(express.json())
 app.use('/api/login',loginRouter)
