@@ -9,13 +9,18 @@ const getTokenFrom = request =>{
     if (authorization && authorization.startsWith('Bearer ') ){
         return authorization.replace('Bearer ', '')
     }
-    return Null
+    return null
 }
 
 BlogsRouter.post('/',async(request,response) => {
     const body = request.body
 
-    const user = await User.findById(body.userId)
+    const decodedToken = jwt.verify(getTokenFrom(request),process.env.secret)
+    if (!decodedToken.id){
+        return response.status(401).json({error: 'token Invalid'})
+    }
+
+    const user = await User.findById(decodedToken.id)
 
     const Blog = new Blog({
         title:body.title,
