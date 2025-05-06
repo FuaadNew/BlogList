@@ -2,6 +2,8 @@ const express = require('express')
 const userRouter = require('./controllers/users')
 const {Blog} = require('./models/mongo')
 const loginRouter = require('./controllers/login')
+const jwt = require('jsonwebtoken')
+const {getTokenFrom} = require('./controllers/login')
 
 const middleware = require('./middleware')
 const app = express()
@@ -35,6 +37,29 @@ app.put('/api/blogs/:id', async (req, res) =>{
 })
 
 app.delete('/api/blogs/:id', async (request,response)=>{
+
+  const decodedToken = jwt.verify(getTokenFrom(request),process.env.secret)
+
+  if (!decodedToken){
+    response.status(400).json({error: "invalid token"})
+
+  }
+
+  if (!(decodedToken.id)){
+    response.status(400).json({error: "invalid token"})
+  }
+
+  const blog = await Blog.findById(request.params.id)
+
+  if (!blog){
+    response.status(400).json({error: "No Blog Found" })
+  }
+
+  if( blog.user.toString()!= decodedToken.id.toString()){
+    response.status(400).json({error: "only the blog creater can delete this blog"})
+
+
+  }
   
   try {const id = request.params.id
   await Blog.findByIdAndDelete(id)

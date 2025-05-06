@@ -1,6 +1,7 @@
 const BlogsRouter = require('express').Router()
 const Blog = require('../models/mongo')
 const User = require('../models/users')
+const {getTokenFrom} = require('./login')
 
 const jwt = require('jsonwebtoken')
 
@@ -49,3 +50,4 @@ usersRouter.get('/',async(request,response)=>{
 })
 
 
+module.exports = getTokenFrom

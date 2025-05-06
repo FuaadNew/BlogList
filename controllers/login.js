@@ -25,4 +25,4 @@ loginRouter.post('/',async (request,response)=>{
 })
 
 
-module.exports = loginRouter
+module.exports = {loginRouter, getTokenFrom}
