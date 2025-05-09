@@ -20,10 +20,18 @@ const userExtractor = async (request, response,next) =>{
         request.user = null
         return next()
     }
-    const user = request.user
-    response.user = user
 
-    const decodedToken = jwt.verify(request.token, process.env.secret)
+    const decodedToken = jwt.verify(request.token,process.env.secret)
+
+    if (!decodedToken){
+       request.user =null
+       return next()
+    }
+    
+    const user = await UserActivation.findById(decodedToken.id)
+    request.user = user
+    next()
+
 }
 
 module.exports = {
