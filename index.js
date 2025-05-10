@@ -1,9 +1,9 @@
 const express = require('express')
 const userRouter = require('./controllers/users')
 const {Blog} = require('./models/mongo')
-const loginRouter = require('./controllers/login')
+const { loginRouter } = require('./controllers/login')
 const jwt = require('jsonwebtoken')
-const {getTokenFrom} = require('./controllers/login')
+const { getTokenFrom } = require('./middleware')
 
 const middleware = require('./middleware')
 const app = express()
